@@ -43,6 +43,9 @@ public class User implements Serializable {
   @Column(nullable = false)
   private UserType userType;
 
+  @Column(nullable = false)
+  private String eatingHabit;
+
   @OneToOne(cascade = CascadeType.ALL)
   private MedicalHistory medicalHistory;
 
