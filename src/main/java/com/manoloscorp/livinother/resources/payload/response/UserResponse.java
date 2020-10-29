@@ -4,6 +4,7 @@ import com.manoloscorp.livinother.entities.UserType;
 import com.manoloscorp.livinother.resources.payload.request.MedicalHistoryRequest;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -19,6 +20,8 @@ public class UserResponse implements Serializable {
   private String genre;
 
   private UserType userType;
+
+  private String eatingHabit;
 
   private MedicalHistoryRequest medicalHistory;
 

@@ -3,6 +3,7 @@ package com.manoloscorp.livinother.resources.payload.request;
 import com.manoloscorp.livinother.entities.UserType;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -27,6 +28,9 @@ public class UserRequest implements Serializable {
 
   @NotNull
   private UserType userType;
+
+  @Column(nullable = false)
+  private String eatingHabit;
 
   @NotNull
   private MedicalHistoryRequest medicalHistory;
