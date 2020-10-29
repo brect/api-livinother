@@ -29,7 +29,7 @@ public class UserRequest implements Serializable {
   @NotNull
   private UserType userType;
 
-  @Column(nullable = false)
+  @NotNull
   private String eatingHabit;
 
   @NotNull
