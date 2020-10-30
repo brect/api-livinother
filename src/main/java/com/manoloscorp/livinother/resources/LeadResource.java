@@ -19,38 +19,37 @@ import java.net.URI;
 @RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.RESOURCE_LEADS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class LeadResource {
 
+    private final UserServiceImpl userService;
+    private final ModelMapper mapper;
 
-  private final UserServiceImpl userService;
-  private final ModelMapper mapper;
-
-  public LeadResource(UserServiceImpl userService, ModelMapper mapper) {
-    this.userService = userService;
-    this.mapper = mapper;
-  }
-
-  @PostMapping
-  @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<?> createLead(@RequestBody UserRequest userRequest){
-
-    if (userService.existsUserByEmail(userRequest.getEmail())){
-      return ResponseEntity
-              .badRequest()
-              .body(new MessageResponse("Error: Email is already in use!"));
+    public LeadResource(UserServiceImpl userService, ModelMapper mapper) {
+        this.userService = userService;
+        this.mapper = mapper;
     }
 
-    User user = mapper.map(userRequest, User.class);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createLead(@RequestBody UserRequest userRequest) {
 
-    userService.saveUser(user);
+        if (userService.existsUserByEmail(userRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
 
-    UserResponse userResponse = mapper.map(user, UserResponse.class);
+        User user = mapper.map(userRequest, User.class);
 
-    URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(user.getId())
-            .toUri();
+        userService.saveUser(user);
 
-    return ResponseEntity.created(uri).body(userResponse);
-  }
+        UserResponse userResponse = mapper.map(user, UserResponse.class);
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(userResponse);
+    }
 
 }

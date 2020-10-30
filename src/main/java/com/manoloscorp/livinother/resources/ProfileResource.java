@@ -13,28 +13,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = RestConstants.APPLICATION_API + RestConstants.PROFILE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileResource {
 
-  private final UserServiceImpl userService;
-  private final ModelMapper mapper;
+    private final UserServiceImpl userService;
+    private final ModelMapper mapper;
 
-  public ProfileResource(UserServiceImpl userService, ModelMapper mapper) {
-    this.userService = userService;
-    this.mapper = mapper;
-  }
+    public ProfileResource(UserServiceImpl userService, ModelMapper mapper) {
+        this.userService = userService;
+        this.mapper = mapper;
+    }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<?> getProfileById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProfileById(@PathVariable Long id) {
 
-    User user = userService.getUserById(id);
+        User user = userService.getUserById(id);
 
-    UserResponse userResponse = mapper.map(user, UserResponse.class);
+        UserResponse userResponse = mapper.map(user, UserResponse.class);
 
-    return ResponseEntity.ok().body(userResponse);
-  }
+        return ResponseEntity.ok().body(userResponse);
+    }
 
-  @PutMapping(value = "/{id}")
-  public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
-    user = userService.updateUser(id, user);
-    return ResponseEntity.ok().body(user);
-  }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> updateProfile(@PathVariable Long id, @RequestBody User user) {
+        user = userService.updateUser(id, user);
+        return ResponseEntity.ok().body(user);
+    }
 
 }

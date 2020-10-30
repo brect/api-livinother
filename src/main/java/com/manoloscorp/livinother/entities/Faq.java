@@ -14,9 +14,9 @@ public class Faq {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1024)
     private String question;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1024)
     private String answer;
 }
